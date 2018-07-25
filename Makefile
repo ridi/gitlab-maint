@@ -3,7 +3,9 @@
 install:
 	mkdir -p -m 750 ./volumes/app ./volumes/config ./volumes/logs
 
+up: IMAGE_TAG ?= latest
 up:
+	IMAGE_TAG=$(IMAGE_TAG) \
 	docker-compose up -d
 
 down:
@@ -16,5 +18,5 @@ update:
 	docker pull gitlab/gitlab-ce:latest
 
 backup:
-	docker exec gitlab gitlab-rake gitlab:backup:create
-	docker restart gitlab
+	gitlab-rake gitlab:backup:create
+	sudo docker restart gitlab

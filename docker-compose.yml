@@ -1,12 +1,12 @@
 gitlab:
-  image: 'gitlab/gitlab-ce:latest'
+  image: gitlab/gitlab-ce:${IMAGE_TAG}
   container_name: gitlab
   restart: always
   hostname: 'gitlab.ridi.io'
   ports:
     - '80:80'
     - '443:443'
-    - '22:22'
+    - '2222:22'
   volumes:
     - './volumes/config:/etc/gitlab'
     - './volumes/logs:/var/log/gitlab'
