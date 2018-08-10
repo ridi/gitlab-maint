@@ -10,3 +10,4 @@ gitlab:
     - './volumes/config:/etc/gitlab'
     - './volumes/logs:/var/log/gitlab'
     - './volumes/app:/var/opt/gitlab'
+    - './volumes/secret/:/secret'
