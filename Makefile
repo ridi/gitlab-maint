@@ -17,8 +17,15 @@ logs:
 update:
 	docker pull gitlab/gitlab-ce:latest
 
-backup:
-	# Backup Application
+backup-app:
 	docker exec -t gitlab gitlab-rake gitlab:backup:create
-	# Backup Configuration
+
+backup-config:
 	docker exec -t gitlab /bin/sh -c 'umask 0077; tar cfz /secret/$$(date "+etc-gitlab-%s.tgz") -C / etc/gitlab'
+
+latest-config:= $(shell ls -t volumes/secret | head -1)
+upload-config:
+	AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID) AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY) AWS_DEFAULT_REGION=ap-northeast-2 \
+		./aws.sh s3 cp ./volumes/secret/$(latest-config) s3://ridi-perf-gitlab-backup
+
+backup: backup-app backup-conifg upload-config
