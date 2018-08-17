@@ -28,4 +28,4 @@ upload-config:
 	AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID) AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY) AWS_DEFAULT_REGION=ap-northeast-2 \
 		./aws.sh s3 cp ./volumes/secret/$(latest-config) s3://ridi-perf-gitlab-backup
 
-backup: backup-app backup-conifg upload-config
+backup: backup-app backup-config upload-config
